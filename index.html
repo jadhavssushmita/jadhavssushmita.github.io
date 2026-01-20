@@ -20,11 +20,7 @@
       margin: 0;
       padding: 0;
     }
-    .container {
-      max-width: 960px;
-      margin: auto;
-      padding: 48px 24px 64px;
-    }
+    .container { max-width: 960px; margin: auto; padding: 48px 24px 64px; }
     header { margin-bottom: 56px; }
     h1 { font-size: 36px; margin-bottom: 8px; letter-spacing: -0.5px; }
     .subtitle { font-size: 18px; color: var(--secondary); max-width: 700px; }
@@ -53,7 +49,7 @@
       <h1>Sushmita Jadhav</h1>
       <p class="subtitle">Product Analyst leveraging advanced analytics, statistical modeling, and data-driven methodologies to generate actionable business and product insights.</p>
       <p class="contact-note">Open to professional discussions regarding these projects or methodological approaches —
-        <a href="mailto:yourname@email.com?subject=Project%20Discussion%20%E2%80%93%20Portfolio%20Review&body=Hi%20Sushmita%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20found%20your%20projects%20analytically%20robust%2C%20particularly%20your%20work%20on%20%5Bproject%20name%5D.%0A%0AI%E2%80%99d%20value%20the%20opportunity%20to%20discuss%20your%20methodologies%2C%20strategic%20approach%2C%20and%20potential%20collaborations.%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D">reach out via email</a>.
+        <a href="mailto:yourname@email.com?subject=Project%20Discussion%20%E2%80%93%20Portfolio%20Review&body=Hi%20Sushmita,%0A%0AI%20came%20across%20your%20portfolio%20and%20found%20your%20projects%20analytically%20robust,%20particularly%20your%20work%20on%20[project%20name].%0A%0AI%E2%80%99d%20value%20the%20opportunity%20to%20discuss%20your%20methodologies,%20strategic%20approach,%20and%20potential%20collaborations.%0A%0ABest%20regards,%0A[Your%20Name]">reach out via email</a>.
       </p>
     </header>
 
@@ -98,12 +94,11 @@ async function loadGithubProjects() {
 
     repos.forEach(repo => {
       if (!repo.fork) {
-        // always show the project
         const div = document.createElement('div');
         div.className = 'project';
         div.setAttribute('data-tools', ''); // empty by default
 
-        // attempt to fetch topics, but don't block rendering
+        // fetch topics (optional, won't block project display)
         fetch(`https://api.github.com/repos/${githubUsername}/${repo.name}/topics`, {
           headers: { Accept: 'application/vnd.github.mercy-preview+json' }
         })
@@ -112,12 +107,13 @@ async function loadGithubProjects() {
           const topics = topicsData.names || [];
           topics.forEach(topic => allTopics.add(topic));
           div.setAttribute('data-tools', topics.join(' ').toLowerCase());
-          const tagsHTML = topics.map(t => `<span class="tag">${t}</span>`).join('');
           const tagsContainer = div.querySelector('.tags');
-          if (tagsContainer) tagsContainer.innerHTML = tagsHTML;
+          if (tagsContainer) {
+            tagsContainer.innerHTML = topics.map(t => `<span class="tag">${t}</span>`).join('');
+          }
 
-          // update filter dropdown
-          filterDropdown.innerHTML = `<option value="all">All</option>`; // reset
+          // update filter dropdown dynamically
+          filterDropdown.innerHTML = `<option value="all">All</option>`;
           Array.from(allTopics).sort().forEach(topic => {
             const option = document.createElement('option');
             option.value = topic.toLowerCase();
@@ -133,7 +129,6 @@ async function loadGithubProjects() {
           <div class="tags"></div>
           <a href='${repo.html_url}' target='_blank'>View project on GitHub →</a>
         `;
-
         container.appendChild(div);
       }
     });
@@ -155,7 +150,6 @@ function filterProjects() {
   });
 }
 </script>
-
 
 </body>
 </html>
