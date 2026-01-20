@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Sushmita Jadhav | Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     :root {
       --primary: #1f2937;
@@ -13,6 +14,7 @@
       --card: #ffffff;
       --border: #e5e7eb;
     }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
@@ -20,59 +22,163 @@
       margin: 0;
       padding: 0;
     }
-    .container { max-width: 960px; margin: auto; padding: 48px 24px 64px; }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 48px 24px 64px;
+    }
+
     header { margin-bottom: 56px; }
-    h1 { font-size: 36px; margin-bottom: 8px; letter-spacing: -0.5px; }
-    .subtitle { font-size: 18px; color: var(--secondary); max-width: 700px; }
-    .contact-note { margin-top: 16px; font-size: 14px; color: var(--secondary); }
-    .contact-note a { color: var(--accent); text-decoration: none; }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--secondary);
+      max-width: 700px;
+    }
+
+    .contact-note {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--secondary);
+    }
+
+    .contact-note a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
     section { margin-bottom: 56px; }
-    h2 { font-size: 22px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-    .edu p { margin: 4px 0; color: var(--secondary); }
-    .filter-container { margin-bottom: 20px; }
-    select { padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border); font-size: 14px; }
-    .projects { display: grid; grid-template-columns: 1fr; gap: 20px; }
-    .project { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; transition: box-shadow 0.2s ease, transform 0.2s ease; }
-    .project:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.06); transform: translateY(-2px); }
-    .project h3 { font-size: 18px; margin-bottom: 8px; }
-    .project p { font-size: 15px; color: var(--secondary); margin-bottom: 6px; }
-    .project .topics { font-size: 13px; color: var(--accent); margin-bottom: 10px; }
-    .project a { display: inline-block; margin-top: 12px; font-size: 14px; color: var(--accent); text-decoration: none; }
-    .error-message { color: red; font-size: 14px; margin-top: 12px; }
-    footer { margin-top: 72px; font-size: 13px; color: var(--secondary); text-align: center; }
-    @media (min-width: 768px) { .projects { grid-template-columns: 1fr 1fr; } }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .edu p {
+      margin: 4px 0;
+      color: var(--secondary);
+    }
+
+    .filter-container {
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .project {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .project:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      transform: translateY(-2px);
+    }
+
+    .project h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .project p {
+      font-size: 15px;
+      color: var(--secondary);
+      margin-bottom: 6px;
+    }
+
+    .topics {
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .project a {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    footer {
+      margin-top: 72px;
+      font-size: 13px;
+      color: var(--secondary);
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .projects {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
+
     <header>
       <h1>Sushmita Jadhav</h1>
-      <p class="subtitle">Product Analyst leveraging advanced analytics, statistical modeling, and data-driven methodologies to generate actionable business and product insights.</p>
-      <p class="contact-note">Open to professional discussions regarding these projects or methodological approaches —
+      <p class="subtitle">
+        Product Analyst leveraging advanced analytics, statistical modeling, and data-driven methodologies
+        to generate actionable business and product insights.
+      </p>
+      <p class="contact-note">
+        Open to professional discussions —
         <a href="mailto:yourname@email.com">reach out via email</a>.
       </p>
     </header>
 
     <section class="edu">
       <h2>Education</h2>
-      <p><strong>Master of Science in Analytics</strong> (Statistical Modeling Concentration)</p>
-      <p>Northeastern University · Graduated July 2020</p>
-      <p>Comprehensive expertise in statistical modeling, quantitative analysis, and data-driven decision support for complex business problems.</p>
+      <p><strong>Master of Science in Analytics</strong> (Statistical Modeling)</p>
+      <p>Northeastern University · July 2020</p>
       <p style="margin-top:12px;"><strong>Bachelor of Engineering in Information Technology</strong></p>
-      <p>University of Mumbai · Graduated May 2016</p>
-      <p>Solid foundation in software engineering principles, data structures, database management, and information technology systems.</p>
+      <p>University of Mumbai · May 2016</p>
     </section>
 
     <section>
       <h2>Projects</h2>
+
       <div class="filter-container">
-        <label for="topicFilter">Filter by topic:</label>
+        <label for="topicFilter">Filter by tool / methodology:</label>
         <select id="topicFilter">
           <option value="all">All</option>
         </select>
       </div>
+
       <div class="projects" id="projectsContainer">
-        <!-- Projects will be dynamically loaded -->
+        <p>Loading projects...</p>
       </div>
     </section>
 
@@ -83,71 +189,95 @@
 const githubUsername = 'jadhavssushmita';
 let allRepos = [];
 
+function formatLabel(text) {
+  return text
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, c => c.toUpperCase());
+}
+
 async function loadGithubProjects() {
   const container = document.getElementById('projectsContainer');
   const topicFilter = document.getElementById('topicFilter');
-  container.innerHTML = "<p>Loading projects...</p>";
 
   try {
-    const response = await fetch(`https://api.github.com/users/${githubUsername}/repos`, {
-      headers: { Accept: 'application/vnd.github.mercy-preview+json' } // required for topics
-    });
+    const response = await fetch(
+      `https://api.github.com/users/${githubUsername}/repos?per_page=100&sort=updated`,
+      {
+        headers: {
+          "Accept": "application/vnd.github+json"
+        }
+      }
+    );
 
     if (response.status === 403) {
-      const resetTime = response.headers.get('X-RateLimit-Reset');
-      const resetDate = resetTime ? new Date(resetTime * 1000) : null;
-      const minutesLeft = resetDate ? Math.ceil((resetDate - new Date()) / 60000) : '?';
-      container.innerHTML = `<p class="error-message">GitHub API rate limit exceeded. Please try again in ${minutesLeft} minute(s).</p>`;
+      container.innerHTML =
+        "<p class='error-message'>GitHub API rate limit exceeded. Please try again later.</p>";
       return;
     }
 
-    if (!response.ok) throw new Error('GitHub API fetch failed');
+    if (!response.ok) throw new Error("GitHub API error");
 
     allRepos = (await response.json()).filter(repo => !repo.fork);
 
-    if (allRepos.length === 0) {
+    if (!allRepos.length) {
       container.innerHTML = "<p>No projects found.</p>";
       return;
     }
 
-    // Populate topic filter
+    // Build filter options
     const topicSet = new Set();
-    allRepos.forEach(r => (r.topics || []).forEach(t => topicSet.add(t)));
+    allRepos.forEach(repo =>
+      (repo.topics || []).forEach(topic => topicSet.add(topic))
+    );
+
     topicSet.forEach(topic => {
-      const option = document.createElement('option');
+      const option = document.createElement("option");
       option.value = topic;
-      option.textContent = topic;
+      option.textContent = formatLabel(topic);
       topicFilter.appendChild(option);
     });
 
-    displayProjects('all');
+    displayProjects("all");
 
-    topicFilter.addEventListener('change', () => displayProjects(topicFilter.value));
+    topicFilter.addEventListener("change", () =>
+      displayProjects(topicFilter.value)
+    );
 
   } catch (err) {
     console.error(err);
-    container.innerHTML = "<p class='error-message'>Could not load projects at this time. Please try again later.</p>";
+    container.innerHTML =
+      "<p class='error-message'>Could not load projects.</p>";
   }
 }
 
 function displayProjects(topic) {
-  const container = document.getElementById('projectsContainer');
-  container.innerHTML = '';
-  const filtered = topic === 'all' ? allRepos : allRepos.filter(r => (r.topics || []).includes(topic));
+  const container = document.getElementById("projectsContainer");
+  container.innerHTML = "";
 
-  if (filtered.length === 0) {
-    container.innerHTML = "<p>No projects match this topic.</p>";
+  const filtered =
+    topic === "all"
+      ? allRepos
+      : allRepos.filter(repo => (repo.topics || []).includes(topic));
+
+  if (!filtered.length) {
+    container.innerHTML = "<p>No projects match this selection.</p>";
     return;
   }
 
   filtered.forEach(repo => {
-    const div = document.createElement('div');
-    div.className = 'project';
+    const div = document.createElement("div");
+    div.className = "project";
     div.innerHTML = `
       <h3>${repo.name}</h3>
-      <p>${repo.description || 'No description provided.'}</p>
-      ${repo.topics.length ? `<p class="topics">Topics: ${repo.topics.join(', ')}</p>` : ''}
-      <a href='${repo.html_url}' target='_blank'>View project on GitHub →</a>
+      <p>${repo.description || "No description provided."}</p>
+      ${
+        repo.topics?.length
+          ? `<p class="topics">
+              Tools / Methodology: ${repo.topics.map(formatLabel).join(", ")}
+            </p>`
+          : ""
+      }
+      <a href="${repo.html_url}" target="_blank">View project on GitHub →</a>
     `;
     container.appendChild(div);
   });
