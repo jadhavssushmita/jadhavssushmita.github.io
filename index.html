@@ -29,16 +29,13 @@
     section { margin-bottom: 56px; }
     h2 { font-size: 22px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
     .edu p { margin: 4px 0; color: var(--secondary); }
-    .filter-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-size: 14px; color: var(--secondary); }
-    select { padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border); background: #fff; }
     .projects { display: grid; grid-template-columns: 1fr; gap: 20px; }
     .project { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; transition: box-shadow 0.2s ease, transform 0.2s ease; }
     .project:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.06); transform: translateY(-2px); }
     .project h3 { font-size: 18px; margin-bottom: 8px; }
     .project p { font-size: 15px; color: var(--secondary); margin-bottom: 10px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .tag { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #eef2ff; color: #3730a3; }
     .project a { display: inline-block; margin-top: 12px; font-size: 14px; color: var(--accent); text-decoration: none; }
+    .error-message { color: red; font-size: 14px; margin-top: 12px; }
     footer { margin-top: 72px; font-size: 13px; color: var(--secondary); text-align: center; }
     @media (min-width: 768px) { .projects { grid-template-columns: 1fr 1fr; } }
   </style>
@@ -49,7 +46,7 @@
       <h1>Sushmita Jadhav</h1>
       <p class="subtitle">Product Analyst leveraging advanced analytics, statistical modeling, and data-driven methodologies to generate actionable business and product insights.</p>
       <p class="contact-note">Open to professional discussions regarding these projects or methodological approaches —
-        <a href="mailto:yourname@email.com?subject=Project%20Discussion%20%E2%80%93%20Portfolio%20Review&body=Hi%20Sushmita,%0A%0AI%20came%20across%20your%20portfolio%20and%20found%20your%20projects%20analytically%20robust,%20particularly%20your%20work%20on%20[project%20name].%0A%0AI%E2%80%99d%20value%20the%20opportunity%20to%20discuss%20your%20methodologies,%20strategic%20approach,%20and%20potential%20collaborations.%0A%0ABest%20regards,%0A[Your%20Name]">reach out via email</a>.
+        <a href="mailto:yourname@email.com">reach out via email</a>.
       </p>
     </header>
 
@@ -65,15 +62,8 @@
 
     <section>
       <h2>Projects</h2>
-      <div class="filter-bar">
-        <span>Filter by analytical tool or methodology</span>
-        <select id="toolFilter" onchange="filterProjects()">
-          <option value="all">All</option>
-        </select>
-      </div>
-
       <div class="projects" id="projectsContainer">
-        <!-- Projects will be dynamically loaded from GitHub API -->
+        <!-- Projects will be dynamically loaded -->
       </div>
     </section>
 
@@ -85,48 +75,37 @@ const githubUsername = 'jadhavssushmita';
 
 async function loadGithubProjects() {
   const container = document.getElementById('projectsContainer');
-  const filterDropdown = document.getElementById('toolFilter');
-  const allTopics = new Set();
+  container.innerHTML = "<p>Loading projects...</p>";
 
   try {
     const response = await fetch(`https://api.github.com/users/${githubUsername}/repos`);
+    
+    if (response.status === 403) {
+      // Check for rate limit
+      const resetTime = response.headers.get('X-RateLimit-Reset');
+      const resetDate = resetTime ? new Date(resetTime * 1000) : null;
+      const minutesLeft = resetDate ? Math.ceil((resetDate - new Date()) / 60000) : '?';
+      container.innerHTML = `<p class="error-message">GitHub API rate limit exceeded. Please try again in ${minutesLeft} minute(s).</p>`;
+      return;
+    }
+
+    if (!response.ok) throw new Error('GitHub API fetch failed');
+
     const repos = await response.json();
+    container.innerHTML = '';
+
+    if (repos.length === 0) {
+      container.innerHTML = "<p>No projects found.</p>";
+      return;
+    }
 
     repos.forEach(repo => {
       if (!repo.fork) {
         const div = document.createElement('div');
         div.className = 'project';
-        div.setAttribute('data-tools', ''); // empty by default
-
-        // fetch topics (optional, won't block project display)
-        fetch(`https://api.github.com/repos/${githubUsername}/${repo.name}/topics`, {
-          headers: { Accept: 'application/vnd.github.mercy-preview+json' }
-        })
-        .then(res => res.json())
-        .then(topicsData => {
-          const topics = topicsData.names || [];
-          topics.forEach(topic => allTopics.add(topic));
-          div.setAttribute('data-tools', topics.join(' ').toLowerCase());
-          const tagsContainer = div.querySelector('.tags');
-          if (tagsContainer) {
-            tagsContainer.innerHTML = topics.map(t => `<span class="tag">${t}</span>`).join('');
-          }
-
-          // update filter dropdown dynamically
-          filterDropdown.innerHTML = `<option value="all">All</option>`;
-          Array.from(allTopics).sort().forEach(topic => {
-            const option = document.createElement('option');
-            option.value = topic.toLowerCase();
-            option.textContent = topic;
-            filterDropdown.appendChild(option);
-          });
-        })
-        .catch(err => console.warn(`Topics fetch failed for ${repo.name}`, err));
-
         div.innerHTML = `
           <h3>${repo.name}</h3>
           <p>${repo.description || 'No description provided.'}</p>
-          <div class="tags"></div>
           <a href='${repo.html_url}' target='_blank'>View project on GitHub →</a>
         `;
         container.appendChild(div);
@@ -134,21 +113,12 @@ async function loadGithubProjects() {
     });
 
   } catch (err) {
-    console.error("Failed to load GitHub repos:", err);
-    container.innerHTML = "<p style='color:red;'>Could not load projects at this time.</p>";
+    console.error(err);
+    container.innerHTML = "<p class='error-message'>Could not load projects at this time. Please try again later.</p>";
   }
 }
 
 loadGithubProjects();
-
-function filterProjects() {
-  const filter = document.getElementById('toolFilter').value.toLowerCase();
-  const projects = document.querySelectorAll('.project');
-  projects.forEach(project => {
-    const tools = project.getAttribute('data-tools');
-    project.style.display = (filter === 'all' || (tools && tools.includes(filter))) ? 'block' : 'none';
-  });
-}
 </script>
 
 </body>
